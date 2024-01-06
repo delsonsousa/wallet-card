@@ -1,7 +1,8 @@
-import { Text } from "react-native";
+import { StatusBar } from "react-native";
 import { useFonts, PTSans_400Regular } from "@expo-google-fonts/pt-sans";
 import { ThemeProvider } from "styled-components";
 import theme from "./src/theme";
+import { Routes } from "./src/routes";
 import { Loading } from "./src/components/Loading";
 
 export default function App() {
@@ -9,7 +10,12 @@ export default function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      {fontsLoaded ? <Text>wallet</Text> : <Loading />}
+      <StatusBar
+        barStyle={"light-content"}
+        backgroundColor="transparent"
+        translucent
+      />
+      {fontsLoaded ? <Routes /> : <Loading />}
     </ThemeProvider>
   );
 }
