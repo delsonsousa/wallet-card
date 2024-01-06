@@ -1,22 +1,33 @@
 export default {
   COLORS: {
-    BLUE: "#12C2E9",
+    BLACK: "#111111",
 
-    GRAY_600: "#202024",
+    BLUE_300: "#12C2E9",
+    BLUE_700: "#142995",
 
-    RED: "#F75A68",
+    GRAY_300: "#EEEEEE",
+    GRAY_500: "#BBBBBB",
+    GRAY_600: "#3F3F3F",
 
-    WHITE: "#FFFFFF",
+    GREEN_300: "#A5FF32",
+    GREEN_700: "#1E9400",
+
+    RED: "#FF0000",
+
+    WHITE: "#FF0000",
+
+    YELLOW: "#FFB800",
   },
   FONT_FAMILY: {
     REGULAR: "PTSans_400Regular",
   },
   FONT_SIZE: {
     SM: 14,
-    MD: 16,
-    LG: 18,
-    XL: 20,
-    XXL: 22,
-    XXXL: 28,
+    P: 16,
+    H5: 18,
+    H4: 20,
+    H3: 22,
+    H2: 26,
+    TITLE: 28,
   },
 };
