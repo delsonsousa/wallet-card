@@ -3,6 +3,7 @@ export declare global {
     interface RootParamList {
       welcome: undefined;
       registration: undefined;
+      successRegistration: undefined;
       wallet: undefined;
     }
   }

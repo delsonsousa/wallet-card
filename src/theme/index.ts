@@ -14,7 +14,7 @@ export default {
 
     RED: "#FF0000",
 
-    WHITE: "#FF0000",
+    WHITE: "#FFFFFF",
 
     YELLOW: "#FFB800",
   },
