@@ -1,7 +1,14 @@
 import { useNavigation } from "@react-navigation/native";
-import { View, Text } from "react-native";
+import {
+  ButtonsContainer,
+  Container,
+  ElementDown,
+  ElementUp,
+  Title,
+} from "./styles";
+import { Button } from "../../components/Button";
 
-export function Welcome() {
+export const Welcome = () => {
   const navigation = useNavigation();
 
   const handleNewCard = () => {
@@ -12,8 +19,18 @@ export function Welcome() {
     navigation.navigate("wallet");
   };
   return (
-    <View>
-      <Text>Welcome</Text>
-    </View>
+    <Container>
+      <ElementUp />
+      <Title>Wallet Test</Title>
+      <ButtonsContainer>
+        <Button onPress={handleWallet} title="meus cartões" type="PRIMARY" />
+        <Button
+          onPress={handleNewCard}
+          title="cadastrar cartão"
+          type="SECONDARY"
+        />
+      </ButtonsContainer>
+      <ElementDown />
+    </Container>
   );
-}
+};
