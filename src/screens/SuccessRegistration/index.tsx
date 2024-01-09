@@ -5,6 +5,7 @@ import { Container, Subtitle, Title } from "./styles";
 import { useCard } from "../../hooks/useCard";
 import { useEffect } from "react";
 import { Loading } from "../../components/Loading";
+import { BackgroundElements } from "../../components/BackgroundElements";
 
 export const SuccessRegistration = () => {
   const { cards, loadCardData, isLoadingCardStorageData } = useCard();
@@ -26,6 +27,7 @@ export const SuccessRegistration = () => {
 
   return (
     <Container>
+      <BackgroundElements />
       <Title>Wallet Test</Title>
       <Subtitle>cartão cadastrado com sucesso</Subtitle>
 

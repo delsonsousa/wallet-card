@@ -11,16 +11,12 @@ import {
   NavButton,
   PageTitle,
   PageTitleContainer,
-  SubtitleEmpty,
   Title,
   TitleEmpty,
-  TransparentButton,
 } from "./styles";
-
-import { api } from "../../service/api";
 import BackIcon from "../../assets/icon-arrow-left";
 import PlusIcon from "../../assets/icon-plus";
-import { ScrollView, StatusBar } from "react-native";
+import { StatusBar } from "react-native";
 import { Card } from "../../components/Card";
 import { Button } from "../../components/Button";
 import { useCard } from "../../hooks/useCard";
@@ -71,7 +67,7 @@ export function Wallet() {
           <CardListScroll>
             {cards.map((card) => (
               <Card
-                key={card.id}
+                key={card.number}
                 title="Black Card"
                 name={card.name}
                 number={card.number}
