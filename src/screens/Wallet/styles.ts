@@ -22,8 +22,11 @@ export const Header = styled.View`
 
   background-color: ${({ theme }) => theme.COLORS.WHITE};
 
-  /* TODO */
-  /* box-shadow: 0px -5px 20px rgba(100, 255, 3);  */
+   shadowColor: #000;
+  shadowOffset: { width: 0, height: 5 };
+  shadowOpacity: 0.1;
+  shadowRadius: 10px;
+  elevation: 10; /* Apenas para Android */
 `;
 
 export const NavButton = styled.TouchableOpacity`
@@ -69,6 +72,23 @@ export const CardList = styled.View`
 export const CardListScroll = styled.ScrollView`
   width: 100%;
   overflow: hidden;
+`;
+
+export const CardListEmpty = styled.View`
+  flex: 1;
+
+  justify-content: center;
+  align-items: center;
+
+  padding: 0 30px;
+`;
+
+export const TitleEmpty = styled.Text`
+  font-family: ${({ theme }) => theme.FONT_FAMILY.REGULAR};
+  font-size: ${({ theme }) => theme.FONT_SIZE.H4}px;
+  color: ${({ theme }) => theme.COLORS.WHITE};
+
+  margin-bottom: 30px;
 `;
 
 export const ButtonContainer = styled.View<ButtonContainerProps>`
