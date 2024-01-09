@@ -3,6 +3,9 @@ import WalletIcon from "../../assets/icon-wallet";
 
 export const Container = styled.View`
   flex: 1;
+
+  position: relative;
+
   justify-content: center;
   align-items: center;
   position: relative;

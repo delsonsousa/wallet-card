@@ -1,12 +1,7 @@
 import { useNavigation } from "@react-navigation/native";
-import {
-  ButtonsContainer,
-  Container,
-  ElementDown,
-  ElementUp,
-  Title,
-} from "./styles";
+import { ButtonsContainer, Container, Title } from "./styles";
 import { Button } from "../../components/Button";
+import { BackgroundElements } from "../../components/BackgroundElements";
 
 export const Welcome = () => {
   const navigation = useNavigation();
@@ -20,7 +15,7 @@ export const Welcome = () => {
   };
   return (
     <Container>
-      <ElementUp />
+      <BackgroundElements />
       <Title>Wallet Test</Title>
       <ButtonsContainer>
         <Button onPress={handleWallet} title="meus cartões" type="PRIMARY" />
@@ -30,7 +25,6 @@ export const Welcome = () => {
           type="SECONDARY"
         />
       </ButtonsContainer>
-      <ElementDown />
     </Container>
   );
 };

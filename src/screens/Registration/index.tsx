@@ -23,6 +23,7 @@ import { useCard } from "../../hooks/useCard";
 import { useEffect, useState } from "react";
 import { Loading } from "../../components/Loading";
 import { useTheme } from "styled-components";
+import { BackgroundElements } from "../../components/BackgroundElements";
 
 const schema = yup.object({
   number: yup
@@ -97,6 +98,7 @@ export const Registration = () => {
 
   return (
     <Container>
+      <BackgroundElements />
       <Header />
       <Content>
         <Title>Wallet Test</Title>
@@ -132,7 +134,6 @@ export const Registration = () => {
               <TextInput
                 onChangeText={onChange}
                 value={value}
-                placeholder="Nome do Titular"
                 style={{
                   borderColor: errors.name && theme.COLORS.YELLOW,
                   borderWidth: errors.name && 2,
@@ -180,7 +181,7 @@ export const Registration = () => {
                     value={value}
                     onChangeText={onChange}
                     keyboardType="numeric"
-                    placeholder="CVV"
+                    placeholder="***"
                     style={{
                       borderColor: errors.cvv && theme.COLORS.YELLOW,
                       borderWidth: errors.cvv && 2,

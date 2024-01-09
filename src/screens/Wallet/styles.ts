@@ -21,12 +21,6 @@ export const Header = styled.View`
   align-items: center;
 
   background-color: ${({ theme }) => theme.COLORS.WHITE};
-
-   shadowColor: #000;
-  shadowOffset: { width: 0, height: 5 };
-  shadowOpacity: 0.1;
-  shadowRadius: 10px;
-  elevation: 10; /* Apenas para Android */
 `;
 
 export const NavButton = styled.TouchableOpacity`
