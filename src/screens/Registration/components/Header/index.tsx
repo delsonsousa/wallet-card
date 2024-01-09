@@ -11,7 +11,7 @@ export const Header = () => {
   return (
     <Container>
       <BackButton onPress={handleReturn}>
-        <BackIcon />
+        <BackIcon testID="back-button" />
       </BackButton>
       <Title>cadastro</Title>
     </Container>

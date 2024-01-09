@@ -1,14 +1,9 @@
 import React, { useEffect } from "react";
-import { View, Animated, Easing } from "react-native";
+import { Animated, Easing } from "react-native";
 import { Container, ElementDown, ElementUp } from "./styles";
 
 const AnimatedElementUp = Animated.createAnimatedComponent(ElementUp);
 const AnimatedElementDown = Animated.createAnimatedComponent(ElementDown);
-
-// type StyleComponentProps = {
-//   y: number;
-//   x: number;
-// };
 
 export const BackgroundElements = () => {
   const opacityAnim = new Animated.Value(0);
@@ -25,14 +20,12 @@ export const BackgroundElements = () => {
   });
 
   useEffect(() => {
-    // Animação de opacidade
     const opacityAnimationUp = Animated.timing(opacityAnim, {
       toValue: 0.2,
       duration: 4000,
       useNativeDriver: true,
     });
 
-    // Animação de rotação
     const rotationAnimationUp = Animated.timing(rotationAnim, {
       toValue: 1,
       duration: 3000,
@@ -46,7 +39,6 @@ export const BackgroundElements = () => {
       useNativeDriver: true,
     });
 
-    // Animação de rotação
     const rotationAnimationDown = Animated.timing(rotationAnim, {
       toValue: 1,
       duration: 3000,
@@ -54,7 +46,6 @@ export const BackgroundElements = () => {
       useNativeDriver: true,
     });
 
-    // Iniciar ambas as animações simultaneamente
     Animated.parallel([
       opacityAnimationUp,
       rotationAnimationUp,

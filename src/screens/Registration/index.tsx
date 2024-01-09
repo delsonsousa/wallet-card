@@ -1,4 +1,3 @@
-import { Alert, ToastAndroid } from "react-native";
 import { useForm, Controller } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -16,11 +15,8 @@ import {
 import { Header } from "./components/Header";
 import { Button } from "../../components/Button";
 import { useNavigation } from "@react-navigation/native";
-import { api } from "../../service/api";
 
-import { AppError } from "../../utils/AppError";
 import { useCard } from "../../hooks/useCard";
-import { useEffect, useState } from "react";
 import { Loading } from "../../components/Loading";
 import { useTheme } from "styled-components";
 import { BackgroundElements } from "../../components/BackgroundElements";
@@ -98,7 +94,6 @@ export const Registration = () => {
 
   return (
     <Container>
-      <BackgroundElements />
       <Header />
       <Content>
         <Title>Wallet Test</Title>
@@ -118,6 +113,7 @@ export const Registration = () => {
                 onChangeText={onChange}
                 keyboardType="numeric"
                 placeholder="**** **** **** ****"
+                testID="name-input"
                 style={{
                   borderColor: errors.number && theme.COLORS.YELLOW,
                   borderWidth: errors.number && 2,
@@ -134,6 +130,7 @@ export const Registration = () => {
               <TextInput
                 onChangeText={onChange}
                 value={value}
+                placeholder="Insira o nome impresso no cartão"
                 style={{
                   borderColor: errors.name && theme.COLORS.YELLOW,
                   borderWidth: errors.name && 2,
@@ -158,6 +155,7 @@ export const Registration = () => {
                     onChangeText={onChange}
                     keyboardType="numeric"
                     placeholder="MM/AA"
+                    testID="dueDate-input"
                     style={{
                       borderColor: errors.dueDate && theme.COLORS.YELLOW,
                       borderWidth: errors.dueDate && 2,
@@ -182,6 +180,7 @@ export const Registration = () => {
                     onChangeText={onChange}
                     keyboardType="numeric"
                     placeholder="***"
+                    testID="cvv-input"
                     style={{
                       borderColor: errors.cvv && theme.COLORS.YELLOW,
                       borderWidth: errors.cvv && 2,
