@@ -10,12 +10,8 @@ export const CardContainer = styled.View<CardProps>`
   width: 100%;
   padding: 30px 15px 45px;
   margin-bottom: 30px;
-
   background-color: ${({ theme, type }) =>
     type === "BLACK CARD" ? theme.COLORS.BLACK : theme.COLORS.GREEN_300};
-
-  /* TODO */
-  /* filter: drop-shadow(0, 2px, 6px, 0, rgba(0, 0, 0, 0.25)); */
 
   border-radius: 16px;
 `;

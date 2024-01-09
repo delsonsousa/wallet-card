@@ -7,7 +7,11 @@ import { BackgroundElements } from "../BackgroundElements";
 const AnimatedLoadIndicatorWrapper =
   Animated.createAnimatedComponent(LoadIndicatorWrapper);
 
-export function Loading() {
+type LoadingProps = {
+  testID: string;
+};
+
+export function Loading({ testID }: LoadingProps) {
   const scaleAnim = useRef(new Animated.Value(1)).current;
   const [fillColor, setFillColor] = useState("#12C2E9");
 
@@ -35,12 +39,12 @@ export function Loading() {
   }, [scaleAnim]);
 
   return (
-    <Container>
-      {/* <BackgroundElements x={} y /> */}
+    <Container testID={testID || "loading-container"}>
       <AnimatedLoadIndicatorWrapper
         style={{ transform: [{ scale: scaleAnim }] }}
+        testID="animated-load-indicator-wrapper"
       >
-        <LoadIndicator fill={fillColor} />
+        <LoadIndicator fill={fillColor} testID="load-indicator" />
       </AnimatedLoadIndicatorWrapper>
     </Container>
   );

@@ -9,7 +9,7 @@ type Props = TouchableOpacityProps & {
 
 export function Button({ title, type = "PRIMARY", ...rest }: Props) {
   return (
-    <Container type={type} {...rest}>
+    <Container type={type} testID={`${type.toLowerCase()}-button`} {...rest}>
       <Title type={type} {...rest}>
         {title}
       </Title>

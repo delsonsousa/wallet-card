@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import {
   CardContainer,
+  CardContent,
   CardDetail,
   CardName,
   CardTitle,
@@ -30,21 +31,12 @@ export const Card = ({
     return "Número inválido";
   };
 
-  const formatDueDate = (dueDate: string) => {
-    // Verifica se a data é uma string e tem o comprimento esperado de 4 dígitos
-    if (typeof dueDate === "string" && dueDate.length === 4) {
-      // Insere uma barra "/" entre os dois primeiros e os dois últimos dígitos
-      return dueDate.slice(0, 2) + "/" + dueDate.slice(2);
-    }
-    return "Data inválida";
-  };
-
   return (
     <CardContainer title={title} type={type}>
       <CardTitle>{type}</CardTitle>
       <CardName>{name}</CardName>
       <CardDetail>{formatCardNumber(number)}</CardDetail>
-      <CardDetail>Validade {formatDueDate(dueDate)}</CardDetail>
+      <CardDetail>Validade {dueDate}</CardDetail>
     </CardContainer>
   );
 };

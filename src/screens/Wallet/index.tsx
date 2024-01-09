@@ -39,13 +39,13 @@ export function Wallet() {
     loadCardData();
   }, []);
 
-  if (isLoadingCardStorageData) return <Loading />;
+  if (isLoadingCardStorageData) return <Loading testID="loading-container" />;
 
   return (
     <Container>
       <StatusBar barStyle={"dark-content"} />
       <Header>
-        <NavButton onPress={handleReturn}>
+        <NavButton testID="back-button" onPress={handleReturn}>
           <BackIcon />
         </NavButton>
         <Title>Wallet Test</Title>
@@ -64,17 +64,15 @@ export function Wallet() {
         </CardListEmpty>
       ) : (
         <CardList>
-          <CardListScroll>
-            {cards.map((card) => (
-              <Card
-                key={card.number}
-                title="Black Card"
-                name={card.name}
-                number={card.number}
-                dueDate={card.dueDate}
-              />
-            ))}
-          </CardListScroll>
+          {cards.map((card) => (
+            <Card
+              key={card.number}
+              title="Black Card"
+              name={card.name}
+              number={card.number}
+              dueDate={card.dueDate}
+            />
+          ))}
 
           <ButtonContainer isCardSelected={cardSelected}>
             {cardSelected ? (

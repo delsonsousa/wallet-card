@@ -23,8 +23,6 @@ export const SuccessRegistration = () => {
 
   if (isLoadingCardStorageData) return <Loading />;
 
-  console.log(lastCardRegistered, "lastCardRegistered");
-
   return (
     <Container>
       <BackgroundElements />
