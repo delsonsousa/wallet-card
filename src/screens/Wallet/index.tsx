@@ -1,8 +1,10 @@
+import { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import {
   ButtonContainer,
   ButtonTitle,
   CardList,
+  CardListScroll,
   Container,
   Header,
   NavButton,
@@ -12,16 +14,19 @@ import {
   TransparentButton,
 } from "./styles";
 
+import { api } from "../../service/api";
 import BackIcon from "../../assets/icon-arrow-left";
 import PlusIcon from "../../assets/icon-plus";
-import { StatusBar } from "react-native";
+import { ScrollView, StatusBar } from "react-native";
 import { Card } from "../../components/Card";
-import { useState } from "react";
 import { Button } from "../../components/Button";
+import { useCard } from "../../hooks/useCard";
+import { Loading } from "../../components/Loading";
 
 export function Wallet() {
   const [cardSelected, setCardSelected] = useState(false);
   const navigation = useNavigation();
+  const { isLoadingCardStorageData, loadCardData, cards } = useCard();
 
   const handleReturn = () => {
     navigation.navigate("welcome");
@@ -30,6 +35,12 @@ export function Wallet() {
   const handleNewCard = () => {
     navigation.navigate("registration");
   };
+
+  useEffect(() => {
+    loadCardData();
+  }, []);
+
+  if (isLoadingCardStorageData) return <Loading />;
 
   return (
     <Container>
@@ -48,7 +59,17 @@ export function Wallet() {
       </PageTitleContainer>
 
       <CardList>
-        <Card title="Black Card" />
+        <CardListScroll>
+          {cards.map((card) => (
+            <Card
+              key={card.id}
+              title="Black Card"
+              name={card.name}
+              number={card.number}
+              dueDate={card.dueDate}
+            />
+          ))}
+        </CardListScroll>
 
         <ButtonContainer isCardSelected={cardSelected}>
           {cardSelected ? (

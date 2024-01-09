@@ -33,7 +33,7 @@ export const NavButton = styled.TouchableOpacity`
 
 export const Title = styled.Text`
   font-family: ${({ theme }) => theme.FONT_FAMILY.REGULAR};
-  font-size: ${({ theme }) => theme.FONT_SIZE.H3};
+  font-size: ${({ theme }) => theme.FONT_SIZE.H3}px;
   color: ${({ theme }) => theme.COLORS.BLUE_700};
 `;
 
@@ -53,7 +53,7 @@ export const PageTitleContainer = styled.View`
 
 export const PageTitle = styled.Text`
   font-family: ${({ theme }) => theme.FONT_FAMILY.REGULAR};
-  font-size: ${({ theme }) => theme.FONT_SIZE.H4};
+  font-size: ${({ theme }) => theme.FONT_SIZE.H4}px;
   color: ${({ theme }) => theme.COLORS.BLUE_300};
 `;
 
@@ -64,6 +64,11 @@ export const CardList = styled.View`
   align-items: center;
 
   padding: 0 30px;
+`;
+
+export const CardListScroll = styled.ScrollView`
+  width: 100%;
+  overflow: hidden;
 `;
 
 export const ButtonContainer = styled.View<ButtonContainerProps>`
