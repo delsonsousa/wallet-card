@@ -1,6 +1,9 @@
 import { StatusBar } from "react-native";
 import { useFonts, PTSans_400Regular } from "@expo-google-fonts/pt-sans";
 import { ThemeProvider } from "styled-components";
+
+import { CardContextProvider } from "./src/contexts/CardContext";
+
 import theme from "./src/theme";
 import { Routes } from "./src/routes";
 import { Loading } from "./src/components/Loading";
@@ -15,7 +18,9 @@ export default function App() {
         backgroundColor="transparent"
         translucent
       />
-      {fontsLoaded ? <Routes /> : <Loading />}
+      <CardContextProvider>
+        {fontsLoaded ? <Routes /> : <Loading />}
+      </CardContextProvider>
     </ThemeProvider>
   );
 }

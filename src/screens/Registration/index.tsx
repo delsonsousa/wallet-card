@@ -1,3 +1,4 @@
+import { Alert, ToastAndroid } from "react-native";
 import { useForm, Controller } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -14,6 +15,12 @@ import {
 import { Header } from "./components/Header";
 import { Button } from "../../components/Button";
 import { useNavigation } from "@react-navigation/native";
+import { api } from "../../service/api";
+
+import { AppError } from "../../utils/AppError";
+import { useCard } from "../../hooks/useCard";
+import { useEffect, useState } from "react";
+import { Loading } from "../../components/Loading";
 
 // const schema = yup.object({
 //   cardNumber: yup.string().required(),
@@ -22,20 +29,44 @@ import { useNavigation } from "@react-navigation/native";
 //   cardCVV: yup.string().required(),
 // });
 
+type FormDataProps = {
+  number: string;
+  name: string;
+  cvv: string;
+  dueDate: string;
+};
+
 export const Registration = () => {
-  const {
-    control,
-    handleSubmit,
-    formState: { errors, isSubmitting },
-  } = useForm({
+  const { control, handleSubmit } = useForm<FormDataProps>({
     // resolver: yupResolver(schema),
   });
+  const { registerCard, isLoadingCardStorageData } = useCard();
 
   const navigation = useNavigation();
 
-  const handleRegisterNewCard = () => {
-    navigation.navigate("successRegistration");
+  const handleRegisterNewCard = async ({
+    number,
+    name,
+    cvv,
+    dueDate,
+  }: FormDataProps) => {
+    const body = {
+      number,
+      name,
+      cvv,
+      dueDate,
+    };
+    try {
+      const status = await registerCard(body);
+      if (status === 201) navigation.navigate("successRegistration");
+    } catch (error) {
+      throw error;
+    }
   };
+
+  if (isLoadingCardStorageData) {
+    return <Loading />;
+  }
 
   return (
     <Container>
@@ -47,13 +78,11 @@ export const Registration = () => {
           <LabelInput>número do cartão</LabelInput>
           <Controller
             control={control}
-            name="cardNumber"
-            render={({ field: { onChange, onBlur, value } }) => (
+            name="number"
+            render={({ field: { onChange } }) => (
               <Input
-                value={value}
                 keyboardType="numeric"
                 onChangeText={onChange}
-                onBlur={onBlur}
                 placeholder="**** **** **** ****"
               />
             )}
@@ -62,9 +91,9 @@ export const Registration = () => {
           <LabelInput>nome do titular do cartão</LabelInput>
           <Controller
             control={control}
-            name="cardName"
-            render={({ field: { onChange, onBlur, value } }) => (
-              <Input value={value} onChangeText={onChange} onBlur={onBlur} />
+            name="name"
+            render={({ field: { onChange } }) => (
+              <Input onChangeText={onChange} />
             )}
           />
 
@@ -73,13 +102,11 @@ export const Registration = () => {
               <LabelInput>vencimento</LabelInput>
               <Controller
                 control={control}
-                name="cardDueDate"
-                render={({ field: { onChange, onBlur, value } }) => (
+                name="dueDate"
+                render={({ field: { onChange } }) => (
                   <Input
-                    value={value}
                     keyboardType="numeric"
                     onChangeText={onChange}
-                    onBlur={onBlur}
                     placeholder="00/00"
                   />
                 )}
@@ -90,13 +117,11 @@ export const Registration = () => {
               <LabelInput>código de segurança</LabelInput>
               <Controller
                 control={control}
-                name="cardCVV"
-                render={({ field: { onChange, onBlur, value } }) => (
+                name="cvv"
+                render={({ field: { onChange } }) => (
                   <Input
-                    value={value}
                     keyboardType="numeric"
                     onChangeText={onChange}
-                    onBlur={onBlur}
                     placeholder="***"
                   />
                 )}
