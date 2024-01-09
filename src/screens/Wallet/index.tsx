@@ -4,13 +4,16 @@ import {
   ButtonContainer,
   ButtonTitle,
   CardList,
+  CardListEmpty,
   CardListScroll,
   Container,
   Header,
   NavButton,
   PageTitle,
   PageTitleContainer,
+  SubtitleEmpty,
   Title,
+  TitleEmpty,
   TransparentButton,
 } from "./styles";
 
@@ -58,32 +61,39 @@ export function Wallet() {
         <PageTitle>Meus cartões</PageTitle>
       </PageTitleContainer>
 
-      <CardList>
-        <CardListScroll>
-          {cards.map((card) => (
-            <Card
-              key={card.id}
-              title="Black Card"
-              name={card.name}
-              number={card.number}
-              dueDate={card.dueDate}
-            />
-          ))}
-        </CardListScroll>
+      {cards.length === 0 ? (
+        <CardListEmpty>
+          <TitleEmpty>Nenhum cartão cadastrado</TitleEmpty>
+          <Button title="Cadastrar Cartão" onPress={handleNewCard} />
+        </CardListEmpty>
+      ) : (
+        <CardList>
+          <CardListScroll>
+            {cards.map((card) => (
+              <Card
+                key={card.id}
+                title="Black Card"
+                name={card.name}
+                number={card.number}
+                dueDate={card.dueDate}
+              />
+            ))}
+          </CardListScroll>
 
-        <ButtonContainer isCardSelected={cardSelected}>
-          {cardSelected ? (
-            <Button
-              onPress={() => setCardSelected(!cardSelected)}
-              title="pagar com este cartão"
-            />
-          ) : (
-            <ButtonTitle onPress={() => setCardSelected(!cardSelected)}>
-              usar este cartão
-            </ButtonTitle>
-          )}
-        </ButtonContainer>
-      </CardList>
+          <ButtonContainer isCardSelected={cardSelected}>
+            {cardSelected ? (
+              <Button
+                onPress={() => setCardSelected(!cardSelected)}
+                title="pagar com este cartão"
+              />
+            ) : (
+              <ButtonTitle onPress={() => setCardSelected(!cardSelected)}>
+                usar este cartão
+              </ButtonTitle>
+            )}
+          </ButtonContainer>
+        </CardList>
+      )}
     </Container>
   );
 }

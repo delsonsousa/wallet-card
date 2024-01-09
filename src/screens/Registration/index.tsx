@@ -10,6 +10,7 @@ import {
   LabelInput,
   SecurityContainer,
   SecurityContent,
+  TextInput,
   Title,
 } from "./styles";
 import { Header } from "./components/Header";
@@ -21,13 +22,33 @@ import { AppError } from "../../utils/AppError";
 import { useCard } from "../../hooks/useCard";
 import { useEffect, useState } from "react";
 import { Loading } from "../../components/Loading";
+import { useTheme } from "styled-components";
 
-// const schema = yup.object({
-//   cardNumber: yup.string().required(),
-//   cardName: yup.string().required(),
-//   cardDuoDate: yup.string().required(),
-//   cardCVV: yup.string().required(),
-// });
+const schema = yup.object({
+  number: yup
+    .string()
+    .required("Número do cartão é obrigatório")
+    .matches(
+      /(\d{4} ){3}\d{4}/,
+      "Número do cartão deve ter 16 dígitos com espaço a cada 4 números"
+    ),
+  name: yup
+    .string()
+    .required("Nome é obrigatório")
+    .matches(/^[A-Za-z ]+$/, "Nome deve conter apenas letras"),
+  dueDate: yup
+    .string()
+    .required("Data de vencimento é obrigatória")
+    .matches(/\d{2}\/\d{2}/, "Data de vencimento deve estar no formato MM/YY")
+    .test("dueDate", "Data de vencimento inválida", (value) => {
+      const [month, year] = value.split("/").map(Number);
+      return month >= 1 && month <= 12 && year >= 24;
+    }),
+  cvv: yup
+    .string()
+    .required("CVV é obrigatório")
+    .matches(/\d{3}/, "CVV deve ter 3 dígitos"),
+});
 
 type FormDataProps = {
   number: string;
@@ -37,12 +58,18 @@ type FormDataProps = {
 };
 
 export const Registration = () => {
-  const { control, handleSubmit } = useForm<FormDataProps>({
-    // resolver: yupResolver(schema),
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
   });
   const { registerCard, isLoadingCardStorageData } = useCard();
 
   const navigation = useNavigation();
+
+  const theme = useTheme();
 
   const handleRegisterNewCard = async ({
     number,
@@ -79,11 +106,20 @@ export const Registration = () => {
           <Controller
             control={control}
             name="number"
-            render={({ field: { onChange } }) => (
+            render={({ field: { onChange, value } }) => (
               <Input
-                keyboardType="numeric"
+                type={"custom"}
+                options={{
+                  mask: "9999 9999 9999 9999",
+                }}
+                value={value}
                 onChangeText={onChange}
+                keyboardType="numeric"
                 placeholder="**** **** **** ****"
+                style={{
+                  borderColor: errors.number && theme.COLORS.YELLOW,
+                  borderWidth: errors.number && 2,
+                }}
               />
             )}
           />
@@ -92,8 +128,16 @@ export const Registration = () => {
           <Controller
             control={control}
             name="name"
-            render={({ field: { onChange } }) => (
-              <Input onChangeText={onChange} />
+            render={({ field: { onChange, value } }) => (
+              <TextInput
+                onChangeText={onChange}
+                value={value}
+                placeholder="Nome do Titular"
+                style={{
+                  borderColor: errors.name && theme.COLORS.YELLOW,
+                  borderWidth: errors.name && 2,
+                }}
+              />
             )}
           />
 
@@ -103,11 +147,20 @@ export const Registration = () => {
               <Controller
                 control={control}
                 name="dueDate"
-                render={({ field: { onChange } }) => (
+                render={({ field: { onChange, value } }) => (
                   <Input
-                    keyboardType="numeric"
+                    type={"custom"}
+                    options={{
+                      mask: "99/99",
+                    }}
+                    value={value}
                     onChangeText={onChange}
-                    placeholder="00/00"
+                    keyboardType="numeric"
+                    placeholder="MM/AA"
+                    style={{
+                      borderColor: errors.dueDate && theme.COLORS.YELLOW,
+                      borderWidth: errors.dueDate && 2,
+                    }}
                   />
                 )}
               />
@@ -118,11 +171,20 @@ export const Registration = () => {
               <Controller
                 control={control}
                 name="cvv"
-                render={({ field: { onChange } }) => (
+                render={({ field: { onChange, value } }) => (
                   <Input
-                    keyboardType="numeric"
+                    type={"custom"}
+                    options={{
+                      mask: "999",
+                    }}
+                    value={value}
                     onChangeText={onChange}
-                    placeholder="***"
+                    keyboardType="numeric"
+                    placeholder="CVV"
+                    style={{
+                      borderColor: errors.cvv && theme.COLORS.YELLOW,
+                      borderWidth: errors.cvv && 2,
+                    }}
                   />
                 )}
               />
@@ -130,7 +192,11 @@ export const Registration = () => {
           </SecurityContainer>
         </FormContainer>
 
-        <Button title="avançar" onPress={handleSubmit(handleRegisterNewCard)} />
+        <Button
+          title="avançar"
+          disabled={Object.keys(errors).length > 0}
+          onPress={handleSubmit(handleRegisterNewCard)}
+        />
       </Content>
     </Container>
   );
